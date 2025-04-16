@@ -11,7 +11,6 @@ egg.addEventListener("click", () => {
     setTimeout(() => {
       eggWrapper.style.display = "none";
       petContainer.style.display = "block";
-  
       animatePet();
       updateStatus();
     }, 700);
@@ -114,7 +113,6 @@ function generateStars(numStars) {
   
     document.getElementById("cry").addEventListener("click", () => {
       status.textContent = "😭 You cried... but the void remains.";
-      document.getElementById("cry").disabled = true;
     });
   
     document.getElementById("rehatch").addEventListener("click", () => {

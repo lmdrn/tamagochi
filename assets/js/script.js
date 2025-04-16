@@ -14,7 +14,6 @@ egg.addEventListener("click", () => {
   
       animatePet();
       updateStatus();
-      setInterval(updateDayNightCycle, 300000);
     }, 700);
 });
   
@@ -31,6 +30,17 @@ function animatePet() {
 }
 
 function updateStatus() {
+  if (hunger <= 0 && fun <= 0 && energy <= 0) {
+    status.textContent = "💀 Your Tamagochi has passed away...";
+    petImage.src = "assets/imgs/dead.png";
+    petImage.classList.add("animate");
+    document.getElementById("feed").style.display = "none";
+    document.getElementById("play").style.display = "none";
+    document.getElementById("sleep").style.display = "none";
+    document.querySelector(".status-bars").style.display = "none";
+    showDeathOptions();
+    return;
+  }
   if (hunger <= 2) {
     status.textContent = "I'm hungry!";
     petImage.src = "assets/imgs/angry.png";
@@ -98,4 +108,39 @@ function generateStars(numStars) {
     }
   }
   generateStars(100);
+
+  function showDeathOptions() {
+    document.getElementById("deathOptions").style.display = "block";
+  
+    document.getElementById("cry").addEventListener("click", () => {
+      status.textContent = "😭 You cried... but the void remains.";
+      document.getElementById("cry").disabled = true;
+    });
+  
+    document.getElementById("rehatch").addEventListener("click", () => {
+      resetGame();
+    });
+  }
+  
+  function resetGame() {
+    hunger = 5;
+    fun = 5;
+    energy = 5;
+  
+    document.getElementById("deathOptions").style.display = "none";
+  
+    petImage.src = "assets/imgs/happy.png";
+    document.querySelector(".status-bars").style.display = "block";
+    document.getElementById("feed").style.display = "inline-block";
+    document.getElementById("play").style.display = "inline-block";
+    document.getElementById("sleep").style.display = "inline-block";
+  
+    document.getElementById("petContainer").style.display = "none";
+    document.getElementById("eggWrapper").style.display = "flex";
+    document.getElementById("egg").classList.remove("cracked");
+    document.getElementById("eggHint").style.display = "block";
+  
+    updateStatus();
+  }
+  
   

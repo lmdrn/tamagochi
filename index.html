@@ -2,17 +2,42 @@
 <html>
   <head>
     <title>My Virtual Pet</title>
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/style/style.css">
   </head>
   <body>
-    <h1>My Virtual Pet 🐾</h1>
+    <div class="stars"></div>
+
+    <!-- Comet -->
+    <div class="comet"></div>
+  
+    <!-- Particle Stars -->
+    <div class="particle" style="top: 10%; left: 20%;"></div>
+    <div class="particle" style="top: 60%; left: 80%;"></div>
+    <div class="particle" style="top: 30%; left: 40%;"></div>
+    
+    
+    <!-- Egg Stage -->
+    <div id="eggWrapper">
+        <h1>Baby Tamagochi</h1>
+        <img id="egg" src="assets/imgs/egg.png" alt="Egg" />
+        <p id="eggHint">✨ Tap to hatch the egg ✨</p>
+    </div>
+
+    <!-- Pet Container (hidden until hatch) -->
+    <div id="petContainer" style="display: none;">
+        <h1>Baby Tamagochi</h1>
+        <div class="status-bars">
+          <div><span>🍕 Hunger</span><div class="bar" id="hungerBar"></div></div>
+          <div><span>🎾 Fun</span><div class="bar" id="funBar"></div></div>
+          <div><span>💤 Energy</span><div class="bar" id="energyBar"></div></div>
+    </div>
+    
     <img id="pet" src="assets/imgs/happy.png" alt="Your Pet" />
     <p id="status">I'm feeling great!</p>
-    <div>
-      <button id="feed">🍕 Feed</button>
-      <button id="play">🎾 Play</button>
-      <button id="sleep">💤 Sleep</button>
-    </div>
-    <script src="script.js"></script>
+    <button id="feed">🍕 Feed</button>
+    <button id="play">🎾 Play</button>
+    <button id="sleep">💤 Sleep</button>
+
+    <script src="assets/js/script.js"></script>
   </body>
 </html>

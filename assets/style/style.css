@@ -1,0 +1,223 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body {
+  font-family: 'Press Start 2P', cursive;
+  background: linear-gradient(-45deg, #2b2d42, #4b0082, #8a2be2, #000000);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  color: #d8b4f8;
+  text-align: center;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 1em;
+  color: #e0aaff;
+}
+
+img {
+  width: 200px;
+  margin-bottom: 1em;
+  border: 5px solid #d8b4f8;
+  border-radius: 20px;
+  transition: transform 0.3s ease;
+  background-color: #1a1a1a;
+}
+
+img.animate {
+  transform: scale(1.1);
+}
+
+#status {
+  font-size: 1em;
+  margin-bottom: 2em;
+  color: #f3d1ff;
+}
+
+button {
+  margin: 0.5em;
+  padding: 1em 2em;
+  font-size: 1em;
+  font-family: 'Press Start 2P', cursive;
+  cursor: pointer;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #a64ac9, #440a67);
+  color: #fff;
+  box-shadow: 0 5px 15px rgba(208, 128, 255, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(208, 128, 255, 0.6);
+}
+
+button:active {
+  transform: scale(0.95);
+  box-shadow: 0 3px 10px rgba(208, 128, 255, 0.4);
+}
+
+.status-bars {
+  max-width: 400px;
+  margin: 0 auto 2em;
+  color: #fff;
+  font-size: 0.8em;
+}
+
+.status-bars div {
+  margin-bottom: 1em;
+}
+
+.bar {
+  height: 12px;
+  background: #444;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 0.3em;
+}
+
+.bar::after {
+  content: '';
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #e0aaff, #bc6ff1);
+  width: var(--value, 100%);
+  transition: width 0.3s ease;
+}
+
+#eggWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+#egg {
+  width: 150px;
+  cursor: pointer;
+  animation: bounce 2s infinite;
+  transition: transform 0.3s ease;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+#egg.cracked {
+  animation: crack 0.5s ease forwards;
+}
+
+@keyframes crack {
+  0% { transform: scale(1); }
+  50% { transform: rotate(-10deg) scale(1.1); }
+  100% { transform: rotate(10deg) scale(0); opacity: 0; }
+}
+
+#eggHint {
+  font-family: 'Press Start 2P', cursive;
+  color: #e0aaff;
+  margin-top: 1em;
+  animation: floatText 2s ease-in-out infinite;
+  font-size: 0.8em;
+}
+
+@keyframes floatText {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(-8px); opacity: 0.8; }
+}
+
+.stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: -1;
+}
+
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background-color: white;
+  opacity: 0;
+  animation: twinkle 1.5s infinite;
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+}
+
+@keyframes moveComet {
+  0% {
+    left: -150px;
+    top: 30%;
+    opacity: 0.8;
+  }
+  100% {
+    left: 100%;
+    top: 50%;
+    opacity: 0;
+  }
+}
+
+.comet {
+  position: absolute;
+  width: 30px;
+  height: 10px;
+  background: linear-gradient(to right, white, transparent);
+  border-radius: 50%;
+  animation: moveComet 10s linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes moveParticles {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(50px, 50px);
+  }
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background-color: white;
+  animation: moveParticles 3s linear infinite;
+  opacity: 0.5;
+}
+
+.particle:nth-child(odd) {
+  animation-duration: 2s;
+}
+
+.particle:nth-child(even) {
+  animation-duration: 3s;
+}

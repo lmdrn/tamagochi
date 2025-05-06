@@ -26,13 +26,70 @@ h1 {
   color: #e0aaff;
 }
 
+
+/* CSS */
+
+#needs, #deathOptions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#deathOptions button
+{
+  width: 25em;
+}
+
+button {
+  font-family: 'Press Start 2P', cursive;
+  margin: 10px;
+  border: none;
+  width: 15em;
+  height: 5em;
+  border-radius: 3em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  background: #1C1A1C;
+  cursor: pointer;
+  transition: all 450ms ease-in-out;
+}
+
+.sparkle {
+  fill: #AAAAAA;
+  transition: all 800ms ease;
+}
+
+.text {
+  font-weight: 600;
+  color: #AAAAAA;
+  font-size: medium;
+}
+
+button:hover {
+  background: linear-gradient(0deg,#A47CF3,#683FEA);
+  box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.4),
+  inset 0px -4px 0px 0px rgba(0, 0, 0, 0.2),
+  0px 0px 0px 4px rgba(255, 255, 255, 0.2),
+  0px 0px 180px 0px #9917FF;
+  transform: translateY(-2px);
+}
+
+button:hover .text {
+  color: white;
+}
+
+button:hover .sparkle {
+  fill: white;
+  transform: scale(2.2);
+} 
+
 img {
   width: 200px;
   margin-bottom: 1em;
-  border: 5px solid #d8b4f8;
   border-radius: 20px;
   transition: transform 0.3s ease;
-  background-color: #1a1a1a;
 }
 
 img.animate {
@@ -45,30 +102,6 @@ img.animate {
   color: #f3d1ff;
 }
 
-button {
-  margin: 0.5em;
-  padding: 1em 2em;
-  font-size: 1em;
-  font-family: 'Press Start 2P', cursive;
-  cursor: pointer;
-  border: none;
-  border-radius: 12px;
-  background: linear-gradient(145deg, #a64ac9, #440a67);
-  color: #fff;
-  box-shadow: 0 5px 15px rgba(208, 128, 255, 0.3);
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
-}
-
-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 20px rgba(208, 128, 255, 0.6);
-}
-
-button:active {
-  transform: scale(0.95);
-  box-shadow: 0 3px 10px rgba(208, 128, 255, 0.4);
-}
-
 .status-bars {
   max-width: 400px;
   margin: 0 auto 2em;
@@ -77,13 +110,12 @@ button:active {
 }
 
 .status-bars div {
-  margin-bottom: 1em;
+  margin-bottom: 3em;
 }
 
 .bar {
-  height: 12px;
+  height: 6px;
   background: #444;
-  border: 1px solid #fff;
   border-radius: 10px;
   overflow: hidden;
   margin-top: 0.3em;

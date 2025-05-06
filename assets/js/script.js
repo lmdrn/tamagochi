@@ -11,80 +11,130 @@ egg.addEventListener("click", () => {
     setTimeout(() => {
       eggWrapper.style.display = "none";
       petContainer.style.display = "block";
-      animatePet();
-      updateStatus();
     }, 700);
 });
   
-let hunger = 5;
-let fun = 5;
-let energy = 5;
+let hunger = 10;
+let fun = 10;
+let energy = 10;
 
-const petImage = document.getElementById("pet");
+const hungerDecreaseInterval = 3000;
+const funDecreaseInterval = 2000;
+const energyDecreaseInterval = 4000;
+
 const status = document.getElementById("status");
+const petImage = document.getElementById("pet");
+const hungerBar = document.getElementById("hungerBar");
+const funBar = document.getElementById("funBar");
+const energyBar = document.getElementById("energyBar");
 
-function animatePet() {
-    petImage.classList.add("animate");
-    setTimeout(() => petImage.classList.remove("animate"), 300);
-}
+function updateStatusBars() {
+  document.getElementById('hungerBar').style.setProperty('--value', `${hunger * 10}%`);
+  document.getElementById('funBar').style.setProperty('--value', `${fun * 10}%`);
+  document.getElementById('energyBar').style.setProperty('--value', `${energy * 10}%`);
 
-function updateStatus() {
-  if (hunger <= 0 && fun <= 0 && energy <= 0) {
-    status.textContent = "💀 Your Tamagochi has passed away...";
-    petImage.src = "assets/imgs/dead.png";
+  if (hunger <= 0 || fun <= 0 || energy <= 0) {
+    if (hunger <= 0)
+    {
+      status.textContent = "💀 Your Tamagotchi has died of hunger...";
+      setTimeout(() => {
+        showDeathOptions();
+      }, 200);
+    }
+    else if (fun <= 0)
+    {
+      status.textContent = "💀 Your Tamagotchi has died of boredom...";
+      setTimeout(() => {
+        showDeathOptions();
+      }, 200);
+    }
+    else if (energy <= 0)
+    {
+      status.textContent = "💀 Your Tamagotchi has died of a lack of sleep...";
+      setTimeout(() => {
+        showDeathOptions();
+      }, 200);
+    }
+    else
+    {
+      status.textContent = "💀 Your Tamagotchi has passed away...";
+      setTimeout(() => {
+        showDeathOptions();
+      }, 200);
+    }
+    petImage.src = "assets/imgs/dead_chick.png";
     petImage.classList.add("animate");
     document.getElementById("feed").style.display = "none";
     document.getElementById("play").style.display = "none";
     document.getElementById("sleep").style.display = "none";
     document.querySelector(".status-bars").style.display = "none";
-    showDeathOptions();
     return;
   }
-  if (hunger <= 2) {
-    status.textContent = "I'm hungry!";
-    petImage.src = "assets/imgs/angry.png";
-  } else if (fun <= 2) {
-    status.textContent = "I'm bored!";
-    petImage.src = "assets/imgs/grumpy.png";
-  } else if (energy <= 2) {
-    status.textContent = "I'm sleepy...";
-    petImage.src = "assets/imgs/sad.png";
-  } else {
+  
+  if (hunger >= 6 && fun >= 6 && energy >= 6) {
     status.textContent = "I'm feeling great!";
-    petImage.src = "assets/imgs/excited.png";
+    petImage.src = "assets/imgs/happy_chick.png";
+    return;
   }
-  document.getElementById('hungerBar').style.setProperty('--value', `${hunger * 10}%`);
-  document.getElementById('funBar').style.setProperty('--value', `${fun * 10}%`);
-  document.getElementById('energyBar').style.setProperty('--value', `${energy * 10}%`);
+
+  const needs = { hunger, fun, energy };
+  const [lowestNeed, lowestValue] = Object.entries(needs).sort((a, b) => a[1] - b[1])[0];
+
+  switch (lowestNeed) {
+    case "hunger":
+      status.textContent = "I'm haaangry!";
+      petImage.src = "assets/imgs/hangry_chick.png";
+      break;
+    case "fun":
+      status.textContent = "I'm bored!";
+      petImage.src = "assets/imgs/bored_chick.png";
+      break;
+    case "energy":
+      status.textContent = "I'm sleepy...";
+      petImage.src = "assets/imgs/sad_chick_2.png";
+      break;
+    default:
+      status.textContent = "I'm feeling great!";
+      petImage.src = "assets/imgs/happy_chick.png";
+      break;
+  }
 }
 
-function feedPet() {
-  hunger = Math.min(hunger + 1, 10);
-  updateStatus();
+function decreaseHunger() {
+  if (hunger > 0) hunger--;
+  updateStatusBars();
 }
 
-function playWithPet() {
-  fun = Math.min(fun + 1, 10);
-  updateStatus();
+function decreaseFun() {
+  if (fun > 0) fun--;
+  updateStatusBars();
 }
 
-function putPetToSleep() {
-  energy = Math.min(energy + 1, 10);
-  updateStatus();
+function decreaseEnergy() {
+  if (energy > 0) energy--;
+  updateStatusBars();
 }
 
-document.getElementById("feed").addEventListener("click", feedPet);
-document.getElementById("play").addEventListener("click", playWithPet);
-document.getElementById("sleep").addEventListener("click", putPetToSleep);
+document.getElementById("feed").addEventListener("click", function () {
+  if (hunger < 10) hunger++;
+  updateStatusBars();
+});
 
-setInterval(() => {
-  hunger = Math.max(hunger - 1, 0);
-  fun = Math.max(fun - 1, 0);
-  energy = Math.max(energy - 1, 0);
-  updateStatus();
-}, 4000);
+document.getElementById("play").addEventListener("click", function () {
+  if (fun < 10) fun++;
+  updateStatusBars();
+});
 
-updateStatus();
+document.getElementById("sleep").addEventListener("click", function () {
+  if (energy < 10) energy++;
+  updateStatusBars();
+});
+
+setInterval(decreaseHunger, hungerDecreaseInterval);
+setInterval(decreaseFun, funDecreaseInterval);
+setInterval(decreaseEnergy, energyDecreaseInterval);
+
+updateStatusBars();
 
 function generateStars(numStars) {
     const starsContainer = document.querySelector('.stars');
@@ -105,40 +155,45 @@ function generateStars(numStars) {
       star.style.animationDuration = `${animationDuration}s`;
       starsContainer.appendChild(star);
     }
-  }
-  generateStars(100);
+}
 
-  function showDeathOptions() {
-    document.getElementById("deathOptions").style.display = "block";
+generateStars(100);
+
+function showDeathOptions() {
+  document.getElementById("deathOptions").style.display = "flex";
+
+  document.getElementById("cry").addEventListener("click", () => {
+    status.textContent = "😭 You cried... but the void remains.";
+  });
+
+  document.getElementById("rehatch").addEventListener("click", () => {
+    resetGame();
+  });
+}
   
-    document.getElementById("cry").addEventListener("click", () => {
-      status.textContent = "😭 You cried... but the void remains.";
-    });
+function resetGame() {
+  hunger = 10;
+  fun = 10;
+  energy = 10;
   
-    document.getElementById("rehatch").addEventListener("click", () => {
-      resetGame();
-    });
-  }
-  
-  function resetGame() {
-    hunger = 5;
-    fun = 5;
-    energy = 5;
-  
-    document.getElementById("deathOptions").style.display = "none";
-  
-    petImage.src = "assets/imgs/happy.png";
-    document.querySelector(".status-bars").style.display = "block";
-    document.getElementById("feed").style.display = "inline-block";
-    document.getElementById("play").style.display = "inline-block";
-    document.getElementById("sleep").style.display = "inline-block";
-  
-    document.getElementById("petContainer").style.display = "none";
-    document.getElementById("eggWrapper").style.display = "flex";
-    document.getElementById("egg").classList.remove("cracked");
-    document.getElementById("eggHint").style.display = "block";
-  
-    updateStatus();
-  }
+  document.getElementById('hungerBar').style.setProperty('--value', `${hunger * 10}%`);
+  document.getElementById('funBar').style.setProperty('--value', `${fun * 10}%`);
+  document.getElementById('energyBar').style.setProperty('--value', `${energy * 10}%`);
+
+  document.getElementById("deathOptions").style.display = "none";
+
+  petImage.src = "assets/imgs/happy.png";
+  document.querySelector(".status-bars").style.display = "block";
+  document.getElementById("feed").style.display = "flex";
+  document.getElementById("play").style.display = "flex";
+  document.getElementById("sleep").style.display = "flex";
+
+  document.getElementById("petContainer").style.display = "none";
+  document.getElementById("eggWrapper").style.display = "flex";
+  document.getElementById("egg").classList.remove("cracked");
+  document.getElementById("eggHint").style.display = "block";
+
+  updateStatusBars();
+}
   
   

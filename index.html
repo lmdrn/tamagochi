@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>My Virtual Pet</title>
+    <title>My Little Tamagotchi</title>
     <link rel="stylesheet" href="assets/style/style.css">
   </head>
   <body>
@@ -33,15 +33,17 @@
     </div>
 
     <div id="deathOptions" style="display: none; margin: 5em;">
-        <button id="cry">💔 Cry</button>
-        <button id="rehatch">🥚 Hatch another</button>
+        <button id="cry"><p class="sparkle">💔</p> <span class="text">Cry</span></button>
+        <button id="rehatch"><p class="sparkle">🥚</p> <span class="text">Hatch another</span></button>
     </div>
     
-    <img id="pet" src="assets/imgs/happy.png" alt="Your Pet" />
+    <img id="pet" src="assets/imgs/happy_chick.png" alt="Your Pet" />
     <p id="status">I'm feeling great!</p>
-    <button id="feed">🍕 Feed</button>
-    <button id="play">🎾 Play</button>
-    <button id="sleep">💤 Sleep</button>
+    <div id="needs">
+      <button id="feed"><p class="sparkle">🍕</p> <span class="text">Feed</span></button>
+      <button id="play"><p class="sparkle">🎾</p> <span class="text">Play</span></button>
+      <button id="sleep"><p class="sparkle">💤</p> <span class="text">Sleep</span></button>
+    </div>
 
     <script src="assets/js/script.js"></script>
   </body>
